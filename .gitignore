@@ -1,0 +1,9 @@
+# Private indstillinger
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtuelt Python-miljø
+.venv/
