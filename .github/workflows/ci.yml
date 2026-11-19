@@ -1,6 +1,7 @@
 
 name: IoT MVP - CI Pipeline
 
+# Kør automatisk ved push og pull requests
 on:
   push:
   pull_request:
@@ -10,21 +11,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Hent projektets kode fra GitHub
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
+      # Installer Python 3.12
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
+      # Installer Python-biblioteker
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r requirements-dev.txt
 
+      # Kør vores 6 automatiserede tests
       - name: Run automated tests
         run: python -m pytest -v
 
+      # Kontroller at Docker-imaget kan bygges
       - name: Build Docker image
         run: docker build -t iot-monitoring-api:ci .
